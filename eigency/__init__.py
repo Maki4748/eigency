@@ -1,9 +1,9 @@
 import os.path
+from importlib.resources import files, as_file
 
 import numpy as np
-from pkg_resources import resource_filename
 
-__eigen_dir__ = resource_filename(__name__, "eigen")
+__eigen_dir__ = (files(__name__) / "eigen").__str__()
 
 
 def get_includes(include_eigen=True):

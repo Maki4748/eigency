@@ -1,6 +1,6 @@
 # distutils: language = c++
 # distutils: sources = eigency_tests/eigency_tests_cpp.cpp
-
+from libc.stdio cimport printf
 from eigency.core cimport *
 
 # cimport eigency.conversions
@@ -142,6 +142,10 @@ def function_filter3(np.ndarray[np.float64_t, ndim=2] array):
 
 # Functions with different matrix types: float64
 def function_type_float64(np.ndarray[np.float64_t, ndim=2] array):
+    print("Pre-Conversion", array)
+    print("C++ Casted", ndarray_view(Map[ArrayXXd](array)))
+    printf("%p\n", _function_type_double(Map[ArrayXXd](array)))
+    print("C++ Returned", ndarray(_function_type_double(Map[ArrayXXd](array))))
     return ndarray(_function_type_double(Map[ArrayXXd](array)))
 
 # Functions with different matrix types: float32

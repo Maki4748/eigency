@@ -9,6 +9,7 @@ extensions = [
         "eigency_tests.eigency_tests",
         ["eigency_tests/eigency_tests.pyx"],
         include_dirs=[".", "eigency_tests"] + eigency.get_includes(),
+        define_macros=[("NPY_NO_DEPRECATED_API", "NPY_1_7_API_VERSION")],
     ),
 ]
 

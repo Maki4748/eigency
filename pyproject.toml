@@ -1,8 +1,8 @@
 [build-system]
 requires = [
-    "setuptools>=42",
-    "setuptools_scm",
-    "oldest-supported-numpy",
-    "Cython"
+    "setuptools>=60.0.0",
+    "setuptools_scm>=6.4.0",
+    "numpy>=2.0.0",
+    "Cython>=3.0.0"
 ]
 build-backend = "setuptools.build_meta"

@@ -39,12 +39,14 @@ extensions = [
         ["eigency/conversions" + ext],
         include_dirs=[np.get_include(), __eigen_dir__],
         language="c++",
+        define_macros=[("NPY_NO_DEPRECATED_API", "NPY_1_7_API_VERSION")],
     ),
     Extension(
         "eigency.core",
         ["eigency/core" + ext],
         include_dirs=[np.get_include(), __eigen_dir__],
         language="c++",
+        define_macros=[("NPY_NO_DEPRECATED_API", "NPY_1_7_API_VERSION")],
     ),
 ]
 
@@ -74,11 +76,11 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Programming Language :: C++",
         "Programming Language :: Cython",
-        "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
     ],
     license="MIT",
     author="Wouter Boomsma",
@@ -97,6 +99,6 @@ setup(
     include_package_data=True,
     package_data={__package_name__: ["*.h", "*.pxd", "*.pyx", join(__eigen_lib_dir__, "*")] + eigen_data_files},
     exclude_package_data={__package_name__: [join(__eigen_lib_dir__, "CMakeLists.txt")]},
-    python_requires=">=3.8",
+    python_requires=">=3.9",
     install_requires=["numpy"],
 )
