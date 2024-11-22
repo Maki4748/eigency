@@ -21,9 +21,9 @@ typedef ::std::complex< long double > __pyx_t_long_double_complex;
 namespace eigency {
 
 template<typename Scalar>
-inline PyArrayObject* _ndarray_view(Scalar *, long rows, long cols, bool is_row_major, long outer_stride=0, long inner_stride=0);
+inline PyArrayObject* _ddarray_view(Scalar *, long rows, long cols, bool is_row_major, long outer_stride=0, long inner_stride=0);
 template<typename Scalar>
-inline PyArrayObject* _ndarray_copy(const Scalar *, long rows, long cols, bool is_row_major, long outer_stride=0, long inner_stride=0);
+inline PyArrayObject* _ddarray_copy(const Scalar *, long rows, long cols, bool is_row_major, long outer_stride=0, long inner_stride=0);
 
 // Strides:
 // Eigen and numpy differ in their way of dealing with strides. Eigen has the concept of outer and
@@ -35,7 +35,7 @@ inline PyArrayObject* _ndarray_copy(const Scalar *, long rows, long cols, bool i
 // in strides, while it does not affect the stride in Eigen.
 
 #define _DDAV(TYPE, FUNC_NAME_E, FUNC_NAME_C, FUNC_NAME_F) template<>                                                                       \
-inline PyArrayObject* _ndarray_view< TYPE >(TYPE *data, long rows, long cols, bool is_row_major, long outer_stride, long inner_stride) {    \
+inline PyArrayObject* _ddarray_view< TYPE >(TYPE *data, long rows, long cols, bool is_row_major, long outer_stride, long inner_stride) {    \
     if (data == nullptr) {                                                                                                                  \
         return FUNC_NAME_E();                                                                                                               \
     } else if (is_row_major) {                                                                                                              \
@@ -50,7 +50,7 @@ inline PyArrayObject* _ndarray_view< TYPE >(TYPE *data, long rows, long cols, bo
 }
 
 #define _DDAC(TYPE, FUNC_NAME_E, FUNC_NAME_C, FUNC_NAME_F) template<>                                                                           \
-inline PyArrayObject* _ndarray_copy< TYPE >(const TYPE *data, long rows, long cols, bool is_row_major, long outer_stride, long inner_stride) {  \
+inline PyArrayObject* _ddarray_copy< TYPE >(const TYPE *data, long rows, long cols, bool is_row_major, long outer_stride, long inner_stride) {  \
     if (data == nullptr) {                                                                                                                      \
         return FUNC_NAME_E();                                                                                                                   \
     } else if (is_row_major) {                                                                                                                  \
@@ -60,34 +60,34 @@ inline PyArrayObject* _ndarray_copy< TYPE >(const TYPE *data, long rows, long co
     }                                                                                                                                           \
 }
 
-_DDAV(long double, ndarray_long_double, ndarray_long_double_C, ndarray_long_double_F)
-_DDAC(long double, ndarray_long_double, ndarray_copy_long_double_C, ndarray_copy_long_double_F)
-_DDAV(double, ndarray_double, ndarray_double_C, ndarray_double_F)
-_DDAC(double, ndarray_double, ndarray_copy_double_C, ndarray_copy_double_F)
-_DDAV(float, ndarray_float, ndarray_float_C, ndarray_float_F)
-_DDAC(float, ndarray_float, ndarray_copy_float_C, ndarray_copy_float_F)
-_DDAV(long, ndarray_long, ndarray_long_C, ndarray_long_F)
-_DDAC(long, ndarray_long, ndarray_copy_long_C, ndarray_copy_long_F)
-_DDAV(unsigned long, ndarray_ulong, ndarray_ulong_C, ndarray_ulong_F)
-_DDAC(unsigned long, ndarray_ulong, ndarray_copy_ulong_C, ndarray_copy_ulong_F)
-_DDAV(int, ndarray_int, ndarray_int_C, ndarray_int_F)
-_DDAC(int, ndarray_int, ndarray_copy_int_C, ndarray_copy_int_F)
-_DDAV(unsigned int, ndarray_uint, ndarray_uint_C, ndarray_uint_F)
-_DDAC(unsigned int, ndarray_uint, ndarray_copy_uint_C, ndarray_copy_uint_F)
-_DDAV(short, ndarray_short, ndarray_short_C, ndarray_short_F)
-_DDAC(short, ndarray_short, ndarray_copy_short_C, ndarray_copy_short_F)
-_DDAV(unsigned short, ndarray_ushort, ndarray_ushort_C, ndarray_ushort_F)
-_DDAC(unsigned short, ndarray_ushort, ndarray_copy_ushort_C, ndarray_copy_ushort_F)
-_DDAV(signed char, ndarray_schar, ndarray_schar_C, ndarray_schar_F)
-_DDAC(signed char, ndarray_schar, ndarray_copy_schar_C, ndarray_copy_schar_F)
-_DDAV(unsigned char, ndarray_uchar, ndarray_uchar_C, ndarray_uchar_F)
-_DDAC(unsigned char, ndarray_uchar, ndarray_copy_uchar_C, ndarray_copy_uchar_F)
-_DDAV(std::complex<long double>, ndarray_complex_long_double, ndarray_complex_long_double_C, ndarray_complex_long_double_F)
-_DDAC(std::complex<long double>, ndarray_complex_long_double, ndarray_copy_complex_long_double_C, ndarray_copy_complex_long_double_F)
-_DDAV(std::complex<double>, ndarray_complex_double, ndarray_complex_double_C, ndarray_complex_double_F)
-_DDAC(std::complex<double>, ndarray_complex_double, ndarray_copy_complex_double_C, ndarray_copy_complex_double_F)
-_DDAV(std::complex<float>, ndarray_complex_float, ndarray_complex_float_C, ndarray_complex_float_F)
-_DDAC(std::complex<float>, ndarray_complex_float, ndarray_copy_complex_float_C, ndarray_copy_complex_float_F)
+_DDAV(long double, ddarray_long_double, ddarray_long_double_C, ddarray_long_double_F)
+_DDAC(long double, ddarray_long_double, ddarray_copy_long_double_C, ddarray_copy_long_double_F)
+_DDAV(double, ddarray_double, ddarray_double_C, ddarray_double_F)
+_DDAC(double, ddarray_double, ddarray_copy_double_C, ddarray_copy_double_F)
+_DDAV(float, ddarray_float, ddarray_float_C, ddarray_float_F)
+_DDAC(float, ddarray_float, ddarray_copy_float_C, ddarray_copy_float_F)
+_DDAV(long, ddarray_long, ddarray_long_C, ddarray_long_F)
+_DDAC(long, ddarray_long, ddarray_copy_long_C, ddarray_copy_long_F)
+_DDAV(unsigned long, ddarray_ulong, ddarray_ulong_C, ddarray_ulong_F)
+_DDAC(unsigned long, ddarray_ulong, ddarray_copy_ulong_C, ddarray_copy_ulong_F)
+_DDAV(int, ddarray_int, ddarray_int_C, ddarray_int_F)
+_DDAC(int, ddarray_int, ddarray_copy_int_C, ddarray_copy_int_F)
+_DDAV(unsigned int, ddarray_uint, ddarray_uint_C, ddarray_uint_F)
+_DDAC(unsigned int, ddarray_uint, ddarray_copy_uint_C, ddarray_copy_uint_F)
+_DDAV(short, ddarray_short, ddarray_short_C, ddarray_short_F)
+_DDAC(short, ddarray_short, ddarray_copy_short_C, ddarray_copy_short_F)
+_DDAV(unsigned short, ddarray_ushort, ddarray_ushort_C, ddarray_ushort_F)
+_DDAC(unsigned short, ddarray_ushort, ddarray_copy_ushort_C, ddarray_copy_ushort_F)
+_DDAV(signed char, ddarray_schar, ddarray_schar_C, ddarray_schar_F)
+_DDAC(signed char, ddarray_schar, ddarray_copy_schar_C, ddarray_copy_schar_F)
+_DDAV(unsigned char, ddarray_uchar, ddarray_uchar_C, ddarray_uchar_F)
+_DDAC(unsigned char, ddarray_uchar, ddarray_copy_uchar_C, ddarray_copy_uchar_F)
+_DDAV(std::complex<long double>, ddarray_complex_long_double, ddarray_complex_long_double_C, ddarray_complex_long_double_F)
+_DDAC(std::complex<long double>, ddarray_complex_long_double, ddarray_copy_complex_long_double_C, ddarray_copy_complex_long_double_F)
+_DDAV(std::complex<double>, ddarray_complex_double, ddarray_complex_double_C, ddarray_complex_double_F)
+_DDAC(std::complex<double>, ddarray_complex_double, ddarray_copy_complex_double_C, ddarray_copy_complex_double_F)
+_DDAV(std::complex<float>, ddarray_complex_float, ddarray_complex_float_C, ddarray_complex_float_F)
+_DDAC(std::complex<float>, ddarray_complex_float, ddarray_copy_complex_float_C, ddarray_copy_complex_float_F)
 
 #undef _DDAV
 #undef _DDAC
@@ -97,66 +97,66 @@ _DDAC(std::complex<float>, ndarray_complex_float, ndarray_copy_complex_float_C, 
 //
 
 template <typename Derived>
-inline PyArrayObject *ndarray(Eigen::PlainObjectBase<Derived> &m) {
+inline PyArrayObject *ddarray(Eigen::PlainObjectBase<Derived> &m) {
     import_eigency__conversions();
-    return _ndarray_view(m.data(), m.rows(), m.cols(), m.IsRowMajor);
+    return _ddarray_view(m.data(), m.rows(), m.cols(), m.IsRowMajor);
 }
 // If C++11 is available, check if m is an r-value reference, in
 // which case a copy should always be made
 #if __cplusplus >= 201103L
 template <typename Derived>
-inline PyArrayObject *ndarray(Eigen::PlainObjectBase<Derived> &&m) {
+inline PyArrayObject *ddarray(Eigen::PlainObjectBase<Derived> &&m) {
     import_eigency__conversions();
-    return _ndarray_copy(m.data(), m.rows(), m.cols(), m.IsRowMajor);
+    return _ddarray_copy(m.data(), m.rows(), m.cols(), m.IsRowMajor);
 }
 #endif
 template <typename Derived>
-inline PyArrayObject *ndarray(const Eigen::PlainObjectBase<Derived> &m) {
+inline PyArrayObject *ddarray(const Eigen::PlainObjectBase<Derived> &m) {
     import_eigency__conversions();
-    return _ndarray_copy(m.data(), m.rows(), m.cols(), m.IsRowMajor);
+    return _ddarray_copy(m.data(), m.rows(), m.cols(), m.IsRowMajor);
 }
 template <typename Derived>
-inline PyArrayObject *ndarray_view(Eigen::PlainObjectBase<Derived> &m) {
+inline PyArrayObject *ddarray_view(Eigen::PlainObjectBase<Derived> &m) {
     import_eigency__conversions();
-    return _ndarray_view(m.data(), m.rows(), m.cols(), m.IsRowMajor);
+    return _ddarray_view(m.data(), m.rows(), m.cols(), m.IsRowMajor);
 }
 template <typename Derived>
-inline PyArrayObject *ndarray_view(const Eigen::PlainObjectBase<Derived> &m) {
+inline PyArrayObject *ddarray_view(const Eigen::PlainObjectBase<Derived> &m) {
     import_eigency__conversions();
-    return _ndarray_view(const_cast<typename Derived::Scalar*>(m.data()), m.rows(), m.cols(), m.IsRowMajor);
+    return _ddarray_view(const_cast<typename Derived::Scalar*>(m.data()), m.rows(), m.cols(), m.IsRowMajor);
 }
 template <typename Derived>
-inline PyArrayObject *ndarray_copy(const Eigen::PlainObjectBase<Derived> &m) {
+inline PyArrayObject *ddarray_copy(const Eigen::PlainObjectBase<Derived> &m) {
     import_eigency__conversions();
-    return _ndarray_copy(m.data(), m.rows(), m.cols(), m.IsRowMajor);
+    return _ddarray_copy(m.data(), m.rows(), m.cols(), m.IsRowMajor);
 }
 
 template <typename Derived, int MapOptions, typename Stride>
-inline PyArrayObject *ndarray(Eigen::Map<Derived, MapOptions, Stride> &m) {
+inline PyArrayObject *ddarray(Eigen::Map<Derived, MapOptions, Stride> &m) {
     import_eigency__conversions();
-    return _ndarray_view(m.data(), m.rows(), m.cols(), m.IsRowMajor, m.outerStride(), m.innerStride());
+    return _ddarray_view(m.data(), m.rows(), m.cols(), m.IsRowMajor, m.outerStride(), m.innerStride());
 }
 template <typename Derived, int MapOptions, typename Stride>
-inline PyArrayObject *ndarray(const Eigen::Map<Derived, MapOptions, Stride> &m) {
+inline PyArrayObject *ddarray(const Eigen::Map<Derived, MapOptions, Stride> &m) {
     import_eigency__conversions();
     // Since this is a map, we assume that ownership is correctly taken care
     // of, and we avoid taking a copy
-    return _ndarray_view(const_cast<typename Derived::Scalar*>(m.data()), m.rows(), m.cols(), m.IsRowMajor, m.outerStride(), m.innerStride());
+    return _ddarray_view(const_cast<typename Derived::Scalar*>(m.data()), m.rows(), m.cols(), m.IsRowMajor, m.outerStride(), m.innerStride());
 }
 template <typename Derived, int MapOptions, typename Stride>
-inline PyArrayObject *ndarray_view(Eigen::Map<Derived, MapOptions, Stride> &m) {
+inline PyArrayObject *ddarray_view(Eigen::Map<Derived, MapOptions, Stride> &m) {
     import_eigency__conversions();
-    return _ndarray_view(m.data(), m.rows(), m.cols(), m.IsRowMajor, m.outerStride(), m.innerStride());
+    return _ddarray_view(m.data(), m.rows(), m.cols(), m.IsRowMajor, m.outerStride(), m.innerStride());
 }
 template <typename Derived, int MapOptions, typename Stride>
-inline PyArrayObject *ndarray_view(const Eigen::Map<Derived, MapOptions, Stride> &m) {
+inline PyArrayObject *ddarray_view(const Eigen::Map<Derived, MapOptions, Stride> &m) {
     import_eigency__conversions();
-    return _ndarray_view(const_cast<typename Derived::Scalar*>(m.data()), m.rows(), m.cols(), m.IsRowMajor, m.outerStride(), m.innerStride());
+    return _ddarray_view(const_cast<typename Derived::Scalar*>(m.data()), m.rows(), m.cols(), m.IsRowMajor, m.outerStride(), m.innerStride());
 }
 template <typename Derived, int MapOptions, typename Stride>
-inline PyArrayObject *ndarray_copy(const Eigen::Map<Derived, MapOptions, Stride> &m) {
+inline PyArrayObject *ddarray_copy(const Eigen::Map<Derived, MapOptions, Stride> &m) {
     import_eigency__conversions();
-    return _ndarray_copy(m.data(), m.rows(), m.cols(), m.IsRowMajor, m.outerStride(), m.innerStride());
+    return _ddarray_copy(m.data(), m.rows(), m.cols(), m.IsRowMajor, m.outerStride(), m.innerStride());
 }
 
 

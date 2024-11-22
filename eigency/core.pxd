@@ -424,9 +424,9 @@ cdef extern from "eigency_cpp.h" namespace "eigency":
          FlattenedMapWithStride() except +
          FlattenedMapWithStride(np.ndarray array) except +
 
-     cdef np.ndarray ndarray_view(PlainObjectBase &)
-     cdef np.ndarray ndarray_copy(PlainObjectBase &)
-     cdef np.ndarray ndarray(PlainObjectBase &)
+     cdef np.ndarray ddarray_view(PlainObjectBase &)
+     cdef np.ndarray ddarray_copy(PlainObjectBase &)
+     cdef np.ndarray ddarray(PlainObjectBase &)
 
 
 cdef extern from "eigency_cpp.h" namespace "Eigen":
