@@ -142,10 +142,6 @@ def function_filter3(np.ndarray[np.float64_t, ndim=2] array):
 
 # Functions with different matrix types: float64
 def function_type_float64(np.ndarray[np.float64_t, ndim=2] array):
-    print("Pre-Conversion", array)
-    print("C++ Casted", ddarray_view(Map[ArrayXXd](array)))
-    printf("%p\n", _function_type_double(Map[ArrayXXd](array)))
-    print("C++ Returned", ddarray(_function_type_double(Map[ArrayXXd](array))))
     return ddarray(_function_type_double(Map[ArrayXXd](array)))
 
 # Functions with different matrix types: float32
