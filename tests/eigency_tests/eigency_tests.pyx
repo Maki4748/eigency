@@ -51,6 +51,8 @@ cdef extern from "eigency_tests/eigency_tests_cpp.h":
      cdef PlainObjectBase _function_type_float "function_type_float" (Map[ArrayXXf] &)
      cdef PlainObjectBase _function_type_long "function_type_long" (FlattenedMap[Array, long, Dynamic, Dynamic] &)
      cdef PlainObjectBase _function_type_ulong "function_type_ulong" (FlattenedMap[Array, unsigned long, Dynamic, Dynamic] &)
+     cdef PlainObjectBase _function_type_longlong "function_type_longlong"(FlattenedMap[Array, long long, Dynamic, Dynamic] &)
+     cdef PlainObjectBase _function_type_ulonglong "function_type_ulonglong"(FlattenedMap[Array, unsigned long long, Dynamic, Dynamic] &)
      cdef PlainObjectBase _function_type_int "function_type_int" (Map[ArrayXXi] &)
      cdef PlainObjectBase _function_type_uint "function_type_uint" (FlattenedMap[Array, unsigned int, Dynamic, Dynamic] &)
      cdef PlainObjectBase _function_type_short "function_type_short" (FlattenedMap[Array, short, Dynamic, Dynamic] &)
@@ -59,7 +61,6 @@ cdef extern from "eigency_tests/eigency_tests_cpp.h":
      cdef PlainObjectBase _function_type_unsigned_char "function_type_unsigned_char" (FlattenedMap[Array, unsigned char, Dynamic, Dynamic] &)
      cdef PlainObjectBase _function_type_complex_double "function_type_complex_double" (Map[ArrayXXcd] &)
      cdef PlainObjectBase _function_type_complex_float "function_type_complex_float" (Map[ArrayXXcf] &)
-
      cdef PlainObjectBase _function_single_col_matrix "function_single_col_matrix" (Map[ArrayXXd] &)
 
      cdef cppclass _FixedMatrixClass "FixedMatrixClass":
@@ -145,10 +146,6 @@ def function_filter3(np.ndarray[np.float64_t, ndim=2] array):
 
 # Functions with different matrix types: float64
 def function_type_float64(np.ndarray[np.float64_t, ndim=2] array):
-    print("Pre-Conversion", array)
-    print("C++ Casted", ddarray_view(Map[ArrayXXd](array)))
-    printf("%p\n", _function_type_double(Map[ArrayXXd](array)))
-    print("C++ Returned", ddarray(_function_type_double(Map[ArrayXXd](array))))
     return ddarray(_function_type_double(Map[ArrayXXd](array)))
 
 # Functions with different matrix types: float32
@@ -162,6 +159,14 @@ def function_type_long(np.ndarray[long, ndim=2] array):
 # Functions with different matrix types: ulong
 def function_type_ulong(np.ndarray[unsigned long, ndim=2] array):
     return ddarray(_function_type_ulong(FlattenedMap[Array, ulong, Dynamic, Dynamic](array)))
+
+# Functions with different matrix types: longlong
+def function_type_longlong(np.ndarray[np.longlong_t, ndim=2] array):
+    return ddarray(_function_type_longlong(FlattenedMap[Array, long_long, Dynamic, Dynamic](array)))
+
+# Functions with different matrix types: ulonglong
+def function_type_ulonglong(np.ndarray[np.ulonglong_t, ndim=2] array):
+    return ddarray(_function_type_ulonglong(FlattenedMap[Array, ulong_long, Dynamic, Dynamic](array)))
 
 # Functions with different matrix types: int
 def function_type_intc(np.ndarray[np.int32_t, ndim=2] array):

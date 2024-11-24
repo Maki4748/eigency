@@ -93,6 +93,16 @@ Eigen::Array<unsigned long, Eigen::Dynamic, Eigen::Dynamic> function_type_ulong(
     return output;
 }
 
+Eigen::Array<long long, Eigen::Dynamic, Eigen::Dynamic> function_type_longlong(Eigen::Map<Eigen::Array<long long, Eigen::Dynamic, Eigen::Dynamic> > &mat) {
+    Eigen::Array<long long, Eigen::Dynamic, Eigen::Dynamic> output = mat;
+    return output;
+}
+
+Eigen::Array<unsigned long long, Eigen::Dynamic, Eigen::Dynamic> function_type_ulonglong(Eigen::Map<Eigen::Array<unsigned long long, Eigen::Dynamic, Eigen::Dynamic> > &mat) {
+    Eigen::Array<unsigned long long, Eigen::Dynamic, Eigen::Dynamic> output = mat;
+    return output;
+}
+
 Eigen::ArrayXXi function_type_int(Eigen::Map<Eigen::ArrayXXi> &mat) {
     Eigen::ArrayXXi output = mat;
     return output;

@@ -4,6 +4,8 @@ cimport numpy as np
 ctypedef signed char schar;
 ctypedef unsigned char uchar;
 ctypedef long double long_double;
+ctypedef long long long_long;
+ctypedef unsigned long long ulong_long;
 
 # TODO: Might need to be updated
 ctypedef fused dtype:
@@ -15,6 +17,8 @@ ctypedef fused dtype:
     float
     double
     long_double
+    long_long
+    ulong_long
 
 ctypedef fused DenseType:
     Matrix
@@ -159,6 +163,30 @@ ctypedef fused DenseTypeShort:
     Matrix3cld
     Matrix4cld
     MatrixXcld
+    Vector2ll
+    Vector3ll
+    Vector4ll
+    VectorXll
+    RowVector2ll
+    RowVector3ll
+    RowVector4ll
+    RowVectorXll
+    Matrix2ll
+    Matrix3ll
+    Matrix4ll
+    MatrixXll
+    Vector2ull
+    Vector3ull
+    Vector4ull
+    VectorXull
+    RowVector2ull
+    RowVector3ull
+    RowVector4ull
+    RowVectorXull
+    Matrix2ull
+    Matrix3ull
+    Matrix4ull
+    MatrixXull
     Array22i
     Array23i
     Array24i
@@ -299,6 +327,46 @@ ctypedef fused DenseTypeShort:
     Array3cld
     Array4cld
     ArrayXcld
+    Array22ll
+    Array23ll
+    Array24ll
+    Array2Xll
+    Array32ll
+    Array33ll
+    Array34ll
+    Array3Xll
+    Array42ll
+    Array43ll
+    Array44ll
+    Array4Xll
+    ArrayX2ll
+    ArrayX3ll
+    ArrayX4ll
+    ArrayXXll
+    Array2ll
+    Array3ll
+    Array4ll
+    ArrayXll
+    Array22ull
+    Array23ull
+    Array24ull
+    Array2Xull
+    Array32ull
+    Array33ull
+    Array34ull
+    Array3Xull
+    Array42ull
+    Array43ull
+    Array44ull
+    Array4Xull
+    ArrayX2ull
+    ArrayX3ull
+    ArrayX4ull
+    ArrayXXull
+    Array2ull
+    Array3ull
+    Array4ull
+    ArrayXull
 
 ctypedef fused StorageOrder:
     RowMajor
@@ -1052,6 +1120,78 @@ cdef extern from "eigency.h" namespace "eigency":
      cdef cppclass MatrixXcld(PlainObjectBase):
           pass
 
+     cdef cppclass Vector2ll(PlainObjectBase):
+         pass
+
+     cdef cppclass Vector3ll(PlainObjectBase):
+         pass
+
+     cdef cppclass Vector4ll(PlainObjectBase):
+         pass
+
+     cdef cppclass VectorXll(PlainObjectBase):
+         pass
+
+     cdef cppclass RowVector2ll(PlainObjectBase):
+         pass
+
+     cdef cppclass RowVector3ll(PlainObjectBase):
+         pass
+
+     cdef cppclass RowVector4ll(PlainObjectBase):
+         pass
+
+     cdef cppclass RowVectorXll(PlainObjectBase):
+         pass
+
+     cdef cppclass Matrix2ll(PlainObjectBase):
+         pass
+
+     cdef cppclass Matrix3ll(PlainObjectBase):
+         pass
+
+     cdef cppclass Matrix4ll(PlainObjectBase):
+         pass
+
+     cdef cppclass MatrixXll(PlainObjectBase):
+         pass
+
+     cdef cppclass Vector2ull(PlainObjectBase):
+         pass
+
+     cdef cppclass Vector3ull(PlainObjectBase):
+         pass
+
+     cdef cppclass Vector4ull(PlainObjectBase):
+         pass
+
+     cdef cppclass VectorXull(PlainObjectBase):
+         pass
+
+     cdef cppclass RowVector2ull(PlainObjectBase):
+         pass
+
+     cdef cppclass RowVector3ull(PlainObjectBase):
+         pass
+
+     cdef cppclass RowVector4ull(PlainObjectBase):
+         pass
+
+     cdef cppclass RowVectorXull(PlainObjectBase):
+         pass
+
+     cdef cppclass Matrix2ull(PlainObjectBase):
+         pass
+
+     cdef cppclass Matrix3ull(PlainObjectBase):
+         pass
+
+     cdef cppclass Matrix4ull(PlainObjectBase):
+         pass
+
+     cdef cppclass MatrixXull(PlainObjectBase):
+         pass
+
      cdef cppclass Array22ld(PlainObjectBase):
           pass
 
@@ -1171,3 +1311,123 @@ cdef extern from "eigency.h" namespace "eigency":
 
      cdef cppclass ArrayXcld(PlainObjectBase):
           pass
+
+     cdef cppclass Array22ll(PlainObjectBase):
+         pass
+
+     cdef cppclass Array23ll(PlainObjectBase):
+         pass
+
+     cdef cppclass Array24ll(PlainObjectBase):
+         pass
+
+     cdef cppclass Array2Xll(PlainObjectBase):
+         pass
+
+     cdef cppclass Array32ll(PlainObjectBase):
+         pass
+
+     cdef cppclass Array33ll(PlainObjectBase):
+         pass
+
+     cdef cppclass Array34ll(PlainObjectBase):
+         pass
+
+     cdef cppclass Array3Xll(PlainObjectBase):
+         pass
+
+     cdef cppclass Array42ll(PlainObjectBase):
+         pass
+
+     cdef cppclass Array43ll(PlainObjectBase):
+         pass
+
+     cdef cppclass Array44ll(PlainObjectBase):
+         pass
+
+     cdef cppclass Array4Xll(PlainObjectBase):
+         pass
+
+     cdef cppclass ArrayX2ll(PlainObjectBase):
+         pass
+
+     cdef cppclass ArrayX3ll(PlainObjectBase):
+         pass
+
+     cdef cppclass ArrayX4ll(PlainObjectBase):
+         pass
+
+     cdef cppclass ArrayXXll(PlainObjectBase):
+         pass
+
+     cdef cppclass Array2ll(PlainObjectBase):
+         pass
+
+     cdef cppclass Array3ll(PlainObjectBase):
+         pass
+
+     cdef cppclass Array4ll(PlainObjectBase):
+         pass
+
+     cdef cppclass ArrayXll(PlainObjectBase):
+         pass
+
+     cdef cppclass Array22ull(PlainObjectBase):
+         pass
+
+     cdef cppclass Array23ull(PlainObjectBase):
+         pass
+
+     cdef cppclass Array24ull(PlainObjectBase):
+         pass
+
+     cdef cppclass Array2Xull(PlainObjectBase):
+         pass
+
+     cdef cppclass Array32ull(PlainObjectBase):
+         pass
+
+     cdef cppclass Array33ull(PlainObjectBase):
+         pass
+
+     cdef cppclass Array34ull(PlainObjectBase):
+         pass
+
+     cdef cppclass Array3Xull(PlainObjectBase):
+         pass
+
+     cdef cppclass Array42ull(PlainObjectBase):
+         pass
+
+     cdef cppclass Array43ull(PlainObjectBase):
+         pass
+
+     cdef cppclass Array44ull(PlainObjectBase):
+         pass
+
+     cdef cppclass Array4Xull(PlainObjectBase):
+         pass
+
+     cdef cppclass ArrayX2ull(PlainObjectBase):
+         pass
+
+     cdef cppclass ArrayX3ull(PlainObjectBase):
+         pass
+
+     cdef cppclass ArrayX4ull(PlainObjectBase):
+         pass
+
+     cdef cppclass ArrayXXull(PlainObjectBase):
+         pass
+
+     cdef cppclass Array2ull(PlainObjectBase):
+         pass
+
+     cdef cppclass Array3ull(PlainObjectBase):
+         pass
+
+     cdef cppclass Array4ull(PlainObjectBase):
+         pass
+
+     cdef cppclass ArrayXull(PlainObjectBase):
+         pass
