@@ -20,6 +20,7 @@ typedef ::std::complex< long double > __pyx_t_long_double_complex;
 
 namespace eigency {
 
+// Eigen -> Numpy (2D)
 template<typename Scalar>
 inline PyArrayObject* _ddarray_view(Scalar *, long rows, long cols, bool is_row_major, long outer_stride=0, long inner_stride=0);
 template<typename Scalar>
@@ -37,57 +38,61 @@ inline PyArrayObject* _ddarray_copy(const Scalar *, long rows, long cols, bool i
 #define _DDAV(TYPE, FUNC_NAME_E, FUNC_NAME_C, FUNC_NAME_F) template<>                                                                       \
 inline PyArrayObject* _ddarray_view< TYPE >(TYPE *data, long rows, long cols, bool is_row_major, long outer_stride, long inner_stride) {    \
     if (data == nullptr) {                                                                                                                  \
-        return FUNC_NAME_E();                                                                                                               \
+        return FUNC_NAME_E(data);                                                                                                               \
     } else if (is_row_major) {                                                                                                              \
         /* Eigen row-major mode: row_stride=outer_stride, and col_stride=inner_stride */                                                    \
         /* If no stride is given, the row_stride is set to the number of columns. */                                                        \
-        return FUNC_NAME_C(data, rows, cols, outer_stride>0?outer_stride:cols, inner_stride>0?inner_stride:1);                              \
+        return FUNC_NAME_C(data, rows, cols, (outer_stride>0?outer_stride:cols)*sizeof(TYPE), (inner_stride>0?inner_stride:1)*sizeof(TYPE));\
     } else {                                                                                                                                \
         /* Eigen column-major mode: row_stride=outer_stride, and col_stride=inner_stride */                                                 \
         /* If no stride is given, the cow_stride is set to the number of rows. */                                                           \
-        return FUNC_NAME_F(data, rows, cols, inner_stride>0?inner_stride:1, outer_stride>0?outer_stride:rows);                              \
+        return FUNC_NAME_F(data, rows, cols, (inner_stride>0?inner_stride:1)*sizeof(TYPE), (outer_stride>0?outer_stride:rows)*sizeof(TYPE));\
     }                                                                                                                                       \
 }
 
 #define _DDAC(TYPE, FUNC_NAME_E, FUNC_NAME_C, FUNC_NAME_F) template<>                                                                           \
 inline PyArrayObject* _ddarray_copy< TYPE >(const TYPE *data, long rows, long cols, bool is_row_major, long outer_stride, long inner_stride) {  \
     if (data == nullptr) {                                                                                                                      \
-        return FUNC_NAME_E();                                                                                                                   \
+        return FUNC_NAME_E(data);                                                                                                                   \
     } else if (is_row_major) {                                                                                                                  \
-        return FUNC_NAME_C(data, rows, cols, outer_stride>0?outer_stride:cols, inner_stride>0?inner_stride:1);                                  \
+        return FUNC_NAME_C(data, rows, cols, (outer_stride>0?outer_stride:cols)*sizeof(TYPE), (inner_stride>0?inner_stride:1)*sizeof(TYPE));    \
     } else {                                                                                                                                    \
-        return FUNC_NAME_F(data, rows, cols, inner_stride>0?inner_stride:1, outer_stride>0?outer_stride:rows);                                  \
+        return FUNC_NAME_F(data, rows, cols, (inner_stride>0?inner_stride:1)*sizeof(TYPE), (outer_stride>0?outer_stride:rows)*sizeof(TYPE));    \
     }                                                                                                                                           \
 }
 
-_DDAV(long double, ddarray_long_double, ddarray_long_double_C, ddarray_long_double_F)
-_DDAC(long double, ddarray_long_double, ddarray_copy_long_double_C, ddarray_copy_long_double_F)
-_DDAV(double, ddarray_double, ddarray_double_C, ddarray_double_F)
-_DDAC(double, ddarray_double, ddarray_copy_double_C, ddarray_copy_double_F)
-_DDAV(float, ddarray_float, ddarray_float_C, ddarray_float_F)
-_DDAC(float, ddarray_float, ddarray_copy_float_C, ddarray_copy_float_F)
-_DDAV(long, ddarray_long, ddarray_long_C, ddarray_long_F)
-_DDAC(long, ddarray_long, ddarray_copy_long_C, ddarray_copy_long_F)
-_DDAV(unsigned long, ddarray_ulong, ddarray_ulong_C, ddarray_ulong_F)
-_DDAC(unsigned long, ddarray_ulong, ddarray_copy_ulong_C, ddarray_copy_ulong_F)
-_DDAV(int, ddarray_int, ddarray_int_C, ddarray_int_F)
-_DDAC(int, ddarray_int, ddarray_copy_int_C, ddarray_copy_int_F)
-_DDAV(unsigned int, ddarray_uint, ddarray_uint_C, ddarray_uint_F)
-_DDAC(unsigned int, ddarray_uint, ddarray_copy_uint_C, ddarray_copy_uint_F)
-_DDAV(short, ddarray_short, ddarray_short_C, ddarray_short_F)
-_DDAC(short, ddarray_short, ddarray_copy_short_C, ddarray_copy_short_F)
-_DDAV(unsigned short, ddarray_ushort, ddarray_ushort_C, ddarray_ushort_F)
-_DDAC(unsigned short, ddarray_ushort, ddarray_copy_ushort_C, ddarray_copy_ushort_F)
-_DDAV(signed char, ddarray_schar, ddarray_schar_C, ddarray_schar_F)
-_DDAC(signed char, ddarray_schar, ddarray_copy_schar_C, ddarray_copy_schar_F)
-_DDAV(unsigned char, ddarray_uchar, ddarray_uchar_C, ddarray_uchar_F)
-_DDAC(unsigned char, ddarray_uchar, ddarray_copy_uchar_C, ddarray_copy_uchar_F)
-_DDAV(std::complex<long double>, ddarray_complex_long_double, ddarray_complex_long_double_C, ddarray_complex_long_double_F)
-_DDAC(std::complex<long double>, ddarray_complex_long_double, ddarray_copy_complex_long_double_C, ddarray_copy_complex_long_double_F)
-_DDAV(std::complex<double>, ddarray_complex_double, ddarray_complex_double_C, ddarray_complex_double_F)
-_DDAC(std::complex<double>, ddarray_complex_double, ddarray_copy_complex_double_C, ddarray_copy_complex_double_F)
-_DDAV(std::complex<float>, ddarray_complex_float, ddarray_complex_float_C, ddarray_complex_float_F)
-_DDAC(std::complex<float>, ddarray_complex_float, ddarray_copy_complex_float_C, ddarray_copy_complex_float_F)
+_DDAV(double, __pyx_fuse_0ddarray, __pyx_fuse_0ddarray_C, __pyx_fuse_0ddarray_F)
+_DDAC(double, __pyx_fuse_0ddarray, __pyx_fuse_0ddarray_copy_C, __pyx_fuse_0ddarray_copy_F)
+_DDAV(long double, __pyx_fuse_1ddarray, __pyx_fuse_1ddarray_C, __pyx_fuse_1ddarray_F)
+_DDAC(long double, __pyx_fuse_1ddarray, __pyx_fuse_1ddarray_copy_C, __pyx_fuse_1ddarray_copy_F)
+_DDAV(std::complex<double>, __pyx_fuse_2ddarray, __pyx_fuse_2ddarray_C, __pyx_fuse_2ddarray_F)
+_DDAC(std::complex<double>, __pyx_fuse_2ddarray, __pyx_fuse_2ddarray_copy_C, __pyx_fuse_2ddarray_copy_F)
+_DDAV(std::complex<long double>, __pyx_fuse_3ddarray, __pyx_fuse_3ddarray_C, __pyx_fuse_3ddarray_F)
+_DDAC(std::complex<long double>, __pyx_fuse_3ddarray, __pyx_fuse_3ddarray_copy_C, __pyx_fuse_3ddarray_copy_F)
+_DDAV(float, __pyx_fuse_4ddarray, __pyx_fuse_4ddarray_C, __pyx_fuse_4ddarray_F)
+_DDAC(float, __pyx_fuse_4ddarray, __pyx_fuse_4ddarray_copy_C, __pyx_fuse_4ddarray_copy_F)
+_DDAV(std::complex<float>, __pyx_fuse_5ddarray, __pyx_fuse_5ddarray_C, __pyx_fuse_5ddarray_F)
+_DDAC(std::complex<float>, __pyx_fuse_5ddarray, __pyx_fuse_5ddarray_copy_C, __pyx_fuse_5ddarray_copy_F)
+_DDAV(long, __pyx_fuse_6ddarray, __pyx_fuse_6ddarray_C, __pyx_fuse_6ddarray_F)
+_DDAC(long, __pyx_fuse_6ddarray, __pyx_fuse_6ddarray_copy_C, __pyx_fuse_6ddarray_copy_F)
+_DDAV(unsigned long, __pyx_fuse_7ddarray, __pyx_fuse_7ddarray_C, __pyx_fuse_7ddarray_F)
+_DDAC(unsigned long, __pyx_fuse_7ddarray, __pyx_fuse_7ddarray_copy_C, __pyx_fuse_7ddarray_copy_F)
+_DDAV(long long, __pyx_fuse_8ddarray, __pyx_fuse_8ddarray_C, __pyx_fuse_8ddarray_F)
+_DDAC(long long, __pyx_fuse_8ddarray, __pyx_fuse_8ddarray_copy_C, __pyx_fuse_8ddarray_copy_F)
+_DDAV(unsigned long long, __pyx_fuse_9ddarray, __pyx_fuse_9ddarray_C, __pyx_fuse_9ddarray_F)
+_DDAC(unsigned long long, __pyx_fuse_9ddarray, __pyx_fuse_9ddarray_copy_C, __pyx_fuse_9ddarray_copy_F)
+_DDAV(int, __pyx_fuse_10ddarray, __pyx_fuse_10ddarray_C, __pyx_fuse_10ddarray_F)
+_DDAC(int, __pyx_fuse_10ddarray, __pyx_fuse_10ddarray_copy_C, __pyx_fuse_10ddarray_copy_F)
+_DDAV(unsigned int, __pyx_fuse_11ddarray, __pyx_fuse_11ddarray_C, __pyx_fuse_11ddarray_F)
+_DDAC(unsigned int, __pyx_fuse_11ddarray, __pyx_fuse_11ddarray_copy_C, __pyx_fuse_11ddarray_copy_F)
+_DDAV(short, __pyx_fuse_12ddarray, __pyx_fuse_12ddarray_C, __pyx_fuse_12ddarray_F)
+_DDAC(short, __pyx_fuse_12ddarray, __pyx_fuse_12ddarray_copy_C, __pyx_fuse_12ddarray_copy_F)
+_DDAV(unsigned short, __pyx_fuse_13ddarray, __pyx_fuse_13ddarray_C, __pyx_fuse_13ddarray_F)
+_DDAC(unsigned short, __pyx_fuse_13ddarray, __pyx_fuse_13ddarray_copy_C, __pyx_fuse_13ddarray_copy_F)
+_DDAV(signed char, __pyx_fuse_14ddarray, __pyx_fuse_14ddarray_C, __pyx_fuse_14ddarray_F)
+_DDAC(signed char, __pyx_fuse_14ddarray, __pyx_fuse_14ddarray_copy_C, __pyx_fuse_14ddarray_copy_F)
+_DDAV(unsigned char, __pyx_fuse_15ddarray, __pyx_fuse_15ddarray_C, __pyx_fuse_15ddarray_F)
+_DDAC(unsigned char, __pyx_fuse_15ddarray, __pyx_fuse_15ddarray_copy_C, __pyx_fuse_15ddarray_copy_F)
 
 #undef _DDAV
 #undef _DDAC
@@ -160,6 +165,7 @@ inline PyArrayObject *ddarray_copy(const Eigen::Map<Derived, MapOptions, Stride>
 }
 
 
+// Numpy -> Eigen (2D)
 template <typename MatrixType,
           int _MapOptions = Eigen::Unaligned,
           typename _StrideType=Eigen::Stride<0,0> >

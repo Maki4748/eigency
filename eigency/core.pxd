@@ -5,6 +5,7 @@ ctypedef signed char schar;
 ctypedef unsigned char uchar;
 ctypedef long double long_double;
 
+# TODO: Might need to be updated
 ctypedef fused dtype:
     uchar
     schar
