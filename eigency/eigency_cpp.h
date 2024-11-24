@@ -38,7 +38,7 @@ inline PyArrayObject* _ddarray_copy(const Scalar *, long rows, long cols, bool i
 #define _DDAV(TYPE, FUNC_NAME_E, FUNC_NAME_C, FUNC_NAME_F) template<>                                                                       \
 inline PyArrayObject* _ddarray_view< TYPE >(TYPE *data, long rows, long cols, bool is_row_major, long outer_stride, long inner_stride) {    \
     if (data == nullptr) {                                                                                                                  \
-        return FUNC_NAME_E(data);                                                                                                               \
+        return FUNC_NAME_E(data);                                                                                                           \
     } else if (is_row_major) {                                                                                                              \
         /* Eigen row-major mode: row_stride=outer_stride, and col_stride=inner_stride */                                                    \
         /* If no stride is given, the row_stride is set to the number of columns. */                                                        \
@@ -53,7 +53,7 @@ inline PyArrayObject* _ddarray_view< TYPE >(TYPE *data, long rows, long cols, bo
 #define _DDAC(TYPE, FUNC_NAME_E, FUNC_NAME_C, FUNC_NAME_F) template<>                                                                           \
 inline PyArrayObject* _ddarray_copy< TYPE >(const TYPE *data, long rows, long cols, bool is_row_major, long outer_stride, long inner_stride) {  \
     if (data == nullptr) {                                                                                                                      \
-        return FUNC_NAME_E(data);                                                                                                                   \
+        return FUNC_NAME_E(data);                                                                                                               \
     } else if (is_row_major) {                                                                                                                  \
         return FUNC_NAME_C(data, rows, cols, (outer_stride>0?outer_stride:cols)*sizeof(TYPE), (inner_stride>0?inner_stride:1)*sizeof(TYPE));    \
     } else {                                                                                                                                    \

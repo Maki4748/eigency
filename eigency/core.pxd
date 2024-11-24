@@ -4,6 +4,8 @@ cimport numpy as np
 ctypedef signed char schar;
 ctypedef unsigned char uchar;
 ctypedef long double long_double;
+ctypedef long long long_long;
+ctypedef unsigned long long ulong_long;
 
 # TODO: Might need to be updated
 ctypedef fused dtype:
@@ -15,6 +17,8 @@ ctypedef fused dtype:
     float
     double
     long_double
+    long_long
+    ulong_long
 
 ctypedef fused DenseType:
     Matrix

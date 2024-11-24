@@ -177,6 +177,18 @@ class TestEigency(unittest.TestCase):
         mat_out = eigency_tests.function_type_ulong(mat_in)
         assert_array_equal(mat_in, mat_out)
 
+    def test_function_type_longlong(self):
+        # C++ long long
+        mat_in = np.array([[1, 2, 3, 4], [5, 6, 7, 8]], order="F", dtype=np.longlong)
+        mat_out = eigency_tests.function_type_longlong(mat_in)
+        assert_array_equal(mat_in, mat_out)
+
+    def test_function_type_ulonglong(self):
+        # C++ ulong long
+        mat_in = np.array([[1, 2, 3, 4], [5, 6, 7, 8]], order="F", dtype=np.ulonglong)
+        mat_out = eigency_tests.function_type_ulonglong(mat_in)
+        assert_array_equal(mat_in, mat_out)
+
     def test_function_type_intc(self):
         # C++ int
         mat_in = np.array([[1, 2, 3, 4], [5, 6, 7, 8]], order="F", dtype=np.intc)
